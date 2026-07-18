@@ -26,7 +26,7 @@ const TOOLS = [
 export function ToolsMarquee() {
   return (
     <section
-      className="relative w-full overflow-hidden border-y border-white/5 bg-background py-12"
+      className="relative w-full overflow-hidden border-y border-white/5 bg-transparent py-12"
       aria-label="Tools & Tech Inventory"
     >
       <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-background to-transparent" />

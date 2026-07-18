@@ -1,5 +1,7 @@
 'use client'
 
+import { useRef } from 'react'
+import dynamic from 'next/dynamic'
 import { SmoothScrollProvider } from '@/components/portfolio/smooth-scroll-provider'
 import { CustomCursor } from '@/components/portfolio/custom-cursor'
 import { HudOverlay } from '@/components/portfolio/hud-overlay'
@@ -14,13 +16,29 @@ import { TestimonialsSection } from '@/components/portfolio/testimonials-section
 import { ContactSection } from '@/components/portfolio/contact-section'
 import { Footer } from '@/components/portfolio/footer'
 import { useMounted } from '@/lib/use-mounted'
+import { ScrollImageSequence } from '@/components/portfolio/scroll-image-sequence'
+
+const GlobalBackground3D = dynamic(
+  () => import('@/components/portfolio/three/global-background-3d').then((m) => m.GlobalBackground3D),
+  { ssr: false }
+)
 
 export default function Home() {
   const mounted = useMounted()
+  const sequenceContainerRef = useRef<HTMLDivElement>(null)
 
   return (
     <SmoothScrollProvider>
-      <main className="relative w-full overflow-x-hidden bg-background text-foreground">
+      <main className="relative w-full overflow-x-hidden bg-transparent text-foreground">
+        {/* Fixed 3D scroll-driven background */}
+        {mounted && <GlobalBackground3D />}
+
+        {/* Scroll-driven image sequence for first 3 sections */}
+        {mounted && <ScrollImageSequence containerRef={sequenceContainerRef} />}
+
+        {/* Deep midnight violet vignette overlay for text legibility */}
+        <div className="fixed inset-0 -z-5 pointer-events-none bg-gradient-to-b from-[#0d0a1b]/80 via-[#0d0a1b]/45 to-[#0d0a1b]/90" />
+
         {/* Fixed overlays */}
         {mounted ? (
           <>
@@ -30,34 +48,38 @@ export default function Home() {
           </>
         ) : null}
 
-        {/* Level 0 — Hero */}
-        <HeroSection />
+        {/* Wrapper for all sections to track scroll progress */}
+        <div ref={sequenceContainerRef} className="relative w-full">
+          {/* Level 0 — Hero */}
+          <HeroSection />
 
-        {/* Level 1 — About / Character Profile */}
-        <AboutSection />
+          {/* Level 1 — About / Character Profile */}
+          <AboutSection />
 
-        {/* Level 2 — Services / Skill Trees */}
-        <ServicesSection />
+          {/* Level 2 — Services / Skill Trees */}
+          <ServicesSection />
 
-        {/* Level 3 — Featured Work / Mission Log */}
-        <WorkSection />
+          {/* Level 3 — Featured Work / Mission Log */}
+          <WorkSection />
 
-        {/* Level 4 — Process / Roadmap */}
-        <ProcessSection />
+          {/* Level 4 — Process / Roadmap */}
+          <ProcessSection />
 
-        {/* Inventory / Tools marquee */}
-        <ToolsMarquee />
+          {/* Inventory / Tools marquee */}
+          <ToolsMarquee />
 
-        {/* Level 5 — Testimonials / Player Reviews */}
-        <TestimonialsSection />
+          {/* Level 5 — Testimonials / Player Reviews */}
+          <TestimonialsSection />
 
-        {/* Level 6 — Contact / Boss CTA */}
-        <ContactSection />
+          {/* Level 6 — Contact / Boss CTA */}
+          <ContactSection />
 
-        {/* End Credits */}
-        <Footer />
+          {/* End Credits */}
+          <Footer />
+        </div>
       </main>
     </SmoothScrollProvider>
   )
 }
+
 

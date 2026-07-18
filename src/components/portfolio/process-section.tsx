@@ -64,7 +64,7 @@ export function ProcessSection() {
     <section
       id="level-process"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-background py-24 md:py-36"
+      className="relative w-full overflow-hidden bg-transparent py-12 md:py-36"
       aria-label="Process — Level 04 Roadmap"
     >
       <div className="pointer-events-none absolute inset-0 z-0 bg-grid opacity-20 mask-fade-b" />

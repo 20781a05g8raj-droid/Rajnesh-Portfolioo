@@ -52,7 +52,7 @@ function getSnapshot(): MotionProfile {
     webglOk = false
   }
 
-  const useWebGL = !prefersReducedMotion && deviceTier === 'high' && webglOk
+  const useWebGL = !prefersReducedMotion && webglOk
 
   cachedProfile = { prefersReducedMotion, deviceTier, useWebGL, isTouch }
   return cachedProfile

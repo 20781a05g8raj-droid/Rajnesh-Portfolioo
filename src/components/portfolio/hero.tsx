@@ -139,14 +139,7 @@ export function Hero({ pointerRef }: { pointerRef: React.RefObject<{ x: number; 
       {/* Particle field canvas (mounted by parent) */}
       <div className="absolute inset-0 z-0">{/* canvas injected via props */}</div>
 
-      {/* Gradient ambient overlays */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10"
-        style={{
-          background:
-            'radial-gradient(80% 50% at 50% 50%, transparent 30%, oklch(0.07 0.012 280 / 60%) 80%, var(--background) 100%)',
-        }}
-      />
+
       <div
         className="pointer-events-none absolute inset-0 z-10 opacity-40"
         style={{

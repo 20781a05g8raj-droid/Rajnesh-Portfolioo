@@ -186,7 +186,7 @@ export function ContactSection() {
   return (
     <section
       id="level-contact"
-      className="relative w-full overflow-hidden bg-background py-24 md:py-36"
+      className="relative w-full overflow-hidden bg-transparent py-12 md:py-36"
       aria-label="Contact — Final Level Boss CTA"
     >
       <div

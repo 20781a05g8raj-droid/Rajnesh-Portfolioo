@@ -42,12 +42,8 @@ export function HeroSection() {
 
   return (
     <div className="relative">
-      {/* WebGL layer */}
-      {mounted && profile.useWebGL ? (
-        <ParticleField pointerRef={pointerRef} />
-      ) : (
-        <FallbackBackground />
-      )}
+      {/* WebGL background is handled globally. If WebGL is disabled, render CSS fallback. */}
+      {mounted && profile.useWebGL ? null : <FallbackBackground />}
       <Hero pointerRef={pointerRef} />
     </div>
   )

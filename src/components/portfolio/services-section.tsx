@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { SectionHeader } from './reveal'
 
@@ -176,6 +176,24 @@ export function ServicesSection() {
   const [currentPhase, setCurrentPhase] = useState(0)
   phase.on('change', (v) => setCurrentPhase(v))
 
+  const [isMobile, setIsMobile] = useState(false)
+  const [scaleFactor, setScaleFactor] = useState(1)
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+      if (mobile) {
+        setScaleFactor(Math.max(0.30, Math.min(0.90, (window.innerWidth - 30) / 1050)))
+      } else {
+        setScaleFactor(1)
+      }
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   // Spread target positions (fan layout) — three cards arranged like a fanned hand
   const fanTargets = [
     { x: -180, y: 10, rotate: -12, z: 60 }, // left card
@@ -194,7 +212,7 @@ export function ServicesSection() {
     <section
       id="level-services"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-background py-24 md:py-36"
+      className="relative w-full overflow-hidden bg-transparent py-12 md:py-36"
       aria-label="Services — Level 02 Skill Trees"
     >
       <div
@@ -221,78 +239,88 @@ export function ServicesSection() {
         {/* Card stage */}
         <div
           ref={stageRef}
-          className="relative mt-20 flex min-h-[520px] items-center justify-center md:min-h-[600px]"
+          className="relative mt-20 flex min-h-[480px] items-center justify-center md:min-h-[600px] w-full"
           style={{ perspective: '1400px' }}
         >
-          {/* Phase progress meter (HUD) */}
-          <div className="pointer-events-none absolute left-1/2 top-0 z-30 flex -translate-x-1/2 items-center gap-3">
-            <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-              Deck Phase
-            </span>
-            <div className="h-1 w-40 overflow-hidden rounded-full bg-white/10">
-              <div
-                className="h-full bg-gradient-to-r from-violet via-cyan to-magenta transition-all"
-                style={{ width: `${Math.min(100, currentPhase * 100)}%` }}
-              />
-            </div>
-            <span className="text-[10px] tabular-nums text-muted-foreground">
-              {Math.round(currentPhase * 100)}%
-            </span>
-          </div>
-
-          {/* Cards */}
-          {SERVICES.map((service, i) => {
-            const accentHex = ACCENT_HEX[service.accent]
-            // Stacked deck position (start)
-            const stack = { x: 0, y: 0, rotate: (i - 1) * 4, z: 0 }
-
-            // Interpolate stack -> fan -> grid based on phase
-            // 0..0.5: stack -> fan
-            // 0.5..1: fan -> grid
-            let x: number
-            let y: number
-            let rotate: number
-            let z: number
-            if (currentPhase < 0.5) {
-              const t = currentPhase / 0.5
-              const ease = 1 - Math.pow(1 - t, 3)
-              x = stack.x + (fanTargets[i].x - stack.x) * ease
-              y = stack.y + (fanTargets[i].y - stack.y) * ease
-              rotate = stack.rotate + (fanTargets[i].rotate - stack.rotate) * ease
-              z = stack.z + (fanTargets[i].z - stack.z) * ease
-            } else {
-              const t = (currentPhase - 0.5) / 0.5
-              const ease = 1 - Math.pow(1 - t, 3)
-              x = fanTargets[i].x + (gridTargets[i].x - fanTargets[i].x) * ease
-              y = fanTargets[i].y + (gridTargets[i].y - fanTargets[i].y) * ease
-              rotate = fanTargets[i].rotate + (gridTargets[i].rotate - fanTargets[i].rotate) * ease
-              z = fanTargets[i].z + (gridTargets[i].z - fanTargets[i].z) * ease
-            }
-
-            return (
-              <motion.article
-                key={service.id}
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="absolute w-[88vw] max-w-md will-change-transform"
-                style={{
-                  transform: `translate3d(${x}px, ${y}px, ${z}px) rotate(${rotate}deg)`,
-                  transformStyle: 'preserve-3d',
-                  zIndex: Math.round(z) + 10,
-                  transition: 'transform 0.15s linear',
-                }}
-              >
-                <Card3D service={service} accentHex={accentHex} index={i} />
-              </motion.article>
-            )
-          })}
-
-          {/* Faint shadow plate behind cards */}
+          {/* Scaled wrapper for mobile/tablet layout */}
           <div
-            className="pointer-events-none absolute bottom-10 left-1/2 z-0 h-12 w-[60%] -translate-x-1/2 rounded-full bg-black/40 blur-2xl"
-            aria-hidden
-          />
+            style={{
+              transform: `scale(${scaleFactor})`,
+              transformOrigin: 'center center',
+              transformStyle: 'preserve-3d',
+            }}
+            className="relative flex items-center justify-center w-full h-full overflow-visible"
+          >
+            {/* Phase progress meter (HUD) */}
+            <div className="pointer-events-none absolute left-1/2 -top-10 z-30 flex -translate-x-1/2 items-center gap-3">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground whitespace-nowrap">
+                Deck Phase
+              </span>
+              <div className="h-1 w-40 overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full bg-gradient-to-r from-violet via-cyan to-magenta transition-all"
+                  style={{ width: `${Math.min(100, currentPhase * 100)}%` }}
+                />
+              </div>
+              <span className="text-[10px] tabular-nums text-muted-foreground">
+                {Math.round(currentPhase * 100)}%
+              </span>
+            </div>
+
+            {/* Cards */}
+            {SERVICES.map((service, i) => {
+              const accentHex = ACCENT_HEX[service.accent]
+              // Stacked deck position (start)
+              const stack = { x: 0, y: 0, rotate: (i - 1) * 4, z: 0 }
+
+              // Interpolate stack -> fan -> grid based on phase
+              // 0..0.5: stack -> fan
+              // 0.5..1: fan -> grid
+              let x: number
+              let y: number
+              let rotate: number
+              let z: number
+              if (currentPhase < 0.5) {
+                const t = currentPhase / 0.5
+                const ease = 1 - Math.pow(1 - t, 3)
+                x = stack.x + (fanTargets[i].x - stack.x) * ease
+                y = stack.y + (fanTargets[i].y - stack.y) * ease
+                rotate = stack.rotate + (fanTargets[i].rotate - stack.rotate) * ease
+                z = stack.z + (fanTargets[i].z - stack.z) * ease
+              } else {
+                const t = (currentPhase - 0.5) / 0.5
+                const ease = 1 - Math.pow(1 - t, 3)
+                x = fanTargets[i].x + (gridTargets[i].x - fanTargets[i].x) * ease
+                y = fanTargets[i].y + (gridTargets[i].y - fanTargets[i].y) * ease
+                rotate = fanTargets[i].rotate + (gridTargets[i].rotate - fanTargets[i].rotate) * ease
+                z = fanTargets[i].z + (gridTargets[i].z - fanTargets[i].z) * ease
+              }
+
+              return (
+                <motion.article
+                  key={service.id}
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="absolute w-[88vw] max-w-md will-change-transform"
+                  style={{
+                    transform: `translate3d(${x}px, ${y}px, ${z}px) rotate(${rotate}deg)`,
+                    transformStyle: 'preserve-3d',
+                    zIndex: Math.round(z) + 10,
+                    transition: 'transform 0.15s linear',
+                  }}
+                >
+                  <Card3D service={service} accentHex={accentHex} index={i} />
+                </motion.article>
+              )
+            })}
+
+            {/* Faint shadow plate behind cards */}
+            <div
+              className="pointer-events-none absolute bottom-10 left-1/2 z-0 h-12 w-[60%] -translate-x-1/2 rounded-full bg-black/40 blur-2xl"
+              aria-hidden
+            />
+          </div>
         </div>
 
         {/* Helper copy */}

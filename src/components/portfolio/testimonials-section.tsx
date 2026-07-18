@@ -74,7 +74,7 @@ export function TestimonialsSection() {
   return (
     <section
       id="level-testimonials"
-      className="relative w-full overflow-hidden bg-background py-24 md:py-36"
+      className="relative w-full overflow-hidden bg-transparent py-12 md:py-36"
       aria-label="Testimonials — Level 05 Player Reviews"
     >
       <div className="relative z-10 mx-auto max-w-7xl px-6">

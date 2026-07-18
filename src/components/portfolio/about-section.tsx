@@ -64,7 +64,7 @@ export function AboutSection() {
     <section
       id="level-about"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-background py-24 md:py-36"
+      className="relative w-full overflow-hidden bg-transparent py-12 md:py-36"
       aria-label="About — Level 01 Character Profile"
     >
       {/* Parallax background */}
@@ -106,7 +106,7 @@ export function AboutSection() {
           {/* Left column */}
           <motion.div style={{ y: yFg }} className="flex flex-col gap-8">
             <Reveal>
-              <p className="text-base leading-relaxed text-foreground/85 md:text-lg">
+              <p className="text-base leading-relaxed text-zinc-100 md:text-lg">
                 I build websites that feel like films — engineered with{' '}
                 <span className="text-gradient-accent">Next.js, React Three Fiber, and custom GLSL</span>{' '}
                 shaders, tuned for buttery 60fps motion. Then I switch hats and direct
@@ -115,7 +115,7 @@ export function AboutSection() {
               </p>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+              <p className="text-base leading-relaxed text-zinc-300 md:text-lg">
                 And the third dialect — AI poster & graphic design — pulls everything
                 together: key art, social creatives, and brand systems generated with
                 Midjourney and Stable Diffusion, refined in Figma and Photoshop until
@@ -214,21 +214,20 @@ export function AboutSection() {
                 </div>
               </div>
 
-              {/* 3D canvas or fallback */}
-              {mounted && profile.useWebGL ? (
-                <AboutObject scrollRef={objectScrollRef} />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className="h-3/5 w-3/5 rounded-full opacity-80 blur-2xl"
-                    style={{
-                      background:
-                        'conic-gradient(from 0deg, oklch(0.62 0.24 290 / 80%), oklch(0.78 0.18 200 / 80%), oklch(0.70 0.24 330 / 80%), oklch(0.62 0.24 290 / 80%))',
-                      animation: 'spin 12s linear infinite',
-                    }}
+              {/* Developer Profile Hologram Image */}
+              <div className="absolute inset-0 flex items-center justify-center p-8">
+                <div className="relative aspect-square h-4/5 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-2xl">
+                  {/* Photo stream from converted Google Drive ID */}
+                  <img
+                    src="https://lh3.googleusercontent.com/d/18c9-YRBOvL4prowS57WTWreJQZQ38ymk"
+                    alt="Rajnesh Upadhyay"
+                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                   />
+                  {/* Scanner overlay effect */}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-violet/20 via-transparent to-cyan/20 mix-blend-overlay" />
+                  <div className="pointer-events-none absolute left-0 top-0 h-0.5 w-full bg-cyan/70 shadow-[0_0_8px_#5ce5ff] animate-scanline" />
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>

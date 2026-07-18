@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useThemeStore } from '@/lib/theme-store'
 
 const LEVELS = [
   { id: 'hero', label: '00' },
@@ -19,6 +20,7 @@ const LEVELS = [
  * - Top-left: minimal brand mark
  */
 export function HudOverlay() {
+  const { mode, toggleMode } = useThemeStore()
   const [activeIdx, setActiveIdx] = useState(0)
   const [progress, setProgress] = useState(0)
 
@@ -53,9 +55,9 @@ export function HudOverlay() {
   return (
     <>
       {/* Top-left brand mark */}
-      <div className="pointer-events-none fixed left-5 top-5 z-50 flex items-center gap-2 md:left-8 md:top-7">
+      <div className="pointer-events-none fixed left-5 top-5 z-50 flex items-center gap-3 md:left-8 md:top-7">
         <div className="relative h-7 w-7">
-          <div className="absolute inset-0 rounded-sm border border-white/30" />
+          <div className="absolute inset-0 rounded-sm border border-black/30 dark:border-white/30" />
           <div className="absolute inset-1 rounded-sm bg-gradient-to-br from-violet to-cyan" />
           <div className="absolute inset-0 flex items-center justify-center font-display text-[10px] font-bold text-white">
             R
@@ -69,6 +71,28 @@ export function HudOverlay() {
             UPADHYAY
           </span>
         </div>
+      </div>
+
+      {/* Top Center Nav Bar */}
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center pointer-events-auto">
+        <nav className="glass hud-border px-5 py-2.5 rounded-full flex items-center gap-5 md:gap-7 shadow-lg backdrop-blur-md bg-white/50 border-black/10">
+          {LEVELS.slice(0, 7).map((level, index) => {
+            const label = level.id.charAt(0).toUpperCase() + level.id.slice(1);
+            return (
+              <button
+                key={level.id}
+                onClick={() => {
+                  document.getElementById(`level-${level.id}`)?.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className={`text-[10px] md:text-xs font-bold uppercase tracking-wider transition-colors hover:text-violet-600 ${
+                  activeIdx === index ? 'text-violet-600 font-extrabold border-b-2 border-violet-500' : 'text-slate-800'
+                }`}
+              >
+                {label}
+              </button>
+            )
+          })}
+        </nav>
       </div>
 
       {/* Top-right level HUD */}

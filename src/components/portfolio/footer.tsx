@@ -14,7 +14,7 @@ const LINKS = [
 export function Footer() {
   return (
     <footer
-      className="relative w-full overflow-hidden border-t border-white/5 bg-background pt-20 pb-10"
+      className="relative w-full overflow-hidden border-t border-white/5 bg-transparent pt-20 pb-10"
       aria-label="End Credits"
     >
       {/* Particle/gradient bookend matching hero */}

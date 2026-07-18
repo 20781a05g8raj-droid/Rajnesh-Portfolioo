@@ -50,38 +50,38 @@
 :root {
   --radius: 0.75rem;
 
-  /* Dark premium portfolio theme (forced) */
-  --background: oklch(0.07 0.012 280);
-  --foreground: oklch(0.97 0.005 280);
-  --card: oklch(0.11 0.015 280);
-  --card-foreground: oklch(0.97 0.005 280);
-  --popover: oklch(0.10 0.015 280);
-  --popover-foreground: oklch(0.97 0.005 280);
-  --primary: oklch(0.97 0.005 280);
-  --primary-foreground: oklch(0.10 0.015 280);
-  --secondary: oklch(0.16 0.015 280);
-  --secondary-foreground: oklch(0.97 0.005 280);
-  --muted: oklch(0.14 0.012 280);
-  --muted-foreground: oklch(0.65 0.015 280);
-  --accent: oklch(0.20 0.02 280);
-  --accent-foreground: oklch(0.97 0.005 280);
-  --destructive: oklch(0.65 0.22 25);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.7 0.18 290);
+  /* Light premium portfolio theme variables */
+  --background: oklch(0.98 0.005 280);
+  --foreground: oklch(0.08 0.01 280);
+  --card: oklch(0.95 0.005 280);
+  --card-foreground: oklch(0.08 0.01 280);
+  --popover: oklch(0.96 0.005 280);
+  --popover-foreground: oklch(0.08 0.01 280);
+  --primary: oklch(0.08 0.01 280);
+  --primary-foreground: oklch(0.98 0.005 280);
+  --secondary: oklch(0.91 0.01 280);
+  --secondary-foreground: oklch(0.08 0.01 280);
+  --muted: oklch(0.89 0.008 280);
+  --muted-foreground: oklch(0.38 0.012 280);
+  --accent: oklch(0.86 0.015 280);
+  --accent-foreground: oklch(0.08 0.01 280);
+  --destructive: oklch(0.60 0.18 25);
+  --border: oklch(0 0 0 / 10%);
+  --input: oklch(0 0 0 / 12%);
+  --ring: oklch(0.62 0.24 290);
   --chart-1: oklch(0.62 0.24 290);
   --chart-2: oklch(0.75 0.18 200);
   --chart-3: oklch(0.70 0.22 320);
   --chart-4: oklch(0.78 0.18 80);
   --chart-5: oklch(0.65 0.24 0);
-  --sidebar: oklch(0.10 0.015 280);
-  --sidebar-foreground: oklch(0.97 0.005 280);
+  --sidebar: oklch(0.95 0.005 280);
+  --sidebar-foreground: oklch(0.08 0.01 280);
   --sidebar-primary: oklch(0.62 0.24 290);
-  --sidebar-primary-foreground: oklch(0.97 0.005 280);
-  --sidebar-accent: oklch(0.16 0.015 280);
-  --sidebar-accent-foreground: oklch(0.97 0.005 280);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.7 0.18 290);
+  --sidebar-primary-foreground: oklch(0.98 0.005 280);
+  --sidebar-accent: oklch(0.91 0.01 280);
+  --sidebar-accent-foreground: oklch(0.08 0.01 280);
+  --sidebar-border: oklch(0 0 0 / 10%);
+  --sidebar-ring: oklch(0.62 0.24 290);
 
   /* Signature accents */
   --violet: oklch(0.62 0.24 290);   /* electric violet */
@@ -90,21 +90,21 @@
 }
 
 .dark {
-  /* Same as :root since we force dark mode */
-  --background: oklch(0.07 0.012 280);
-  --foreground: oklch(0.97 0.005 280);
-  --card: oklch(0.11 0.015 280);
-  --card-foreground: oklch(0.97 0.005 280);
-  --popover: oklch(0.10 0.015 280);
-  --popover-foreground: oklch(0.97 0.005 280);
-  --primary: oklch(0.97 0.005 280);
-  --primary-foreground: oklch(0.10 0.015 280);
-  --secondary: oklch(0.16 0.015 280);
-  --secondary-foreground: oklch(0.97 0.005 280);
-  --muted: oklch(0.14 0.012 280);
-  --muted-foreground: oklch(0.65 0.015 280);
-  --accent: oklch(0.20 0.02 280);
-  --accent-foreground: oklch(0.97 0.005 280);
+  /* Premium Deep Midnight Violet Theme */
+  --background: oklch(0.12 0.03 275);
+  --foreground: oklch(0.96 0.01 275);
+  --card: oklch(0.15 0.04 275);
+  --card-foreground: oklch(0.96 0.01 275);
+  --popover: oklch(0.14 0.04 275);
+  --popover-foreground: oklch(0.96 0.01 275);
+  --primary: oklch(0.96 0.01 275);
+  --primary-foreground: oklch(0.12 0.03 275);
+  --secondary: oklch(0.18 0.04 275);
+  --secondary-foreground: oklch(0.96 0.01 275);
+  --muted: oklch(0.16 0.03 275);
+  --muted-foreground: oklch(0.70 0.02 275);
+  --accent: oklch(0.22 0.05 275);
+  --accent-foreground: oklch(0.96 0.01 275);
   --destructive: oklch(0.65 0.22 25);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 10%);
@@ -131,6 +131,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  body.webgl-active {
+    background-color: transparent !important;
+  }
 
   ::selection {
     background: oklch(0.62 0.24 290 / 35%);
@@ -143,7 +146,7 @@
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: oklch(0.07 0.012 280);
+    background: oklch(0.95 0.005 280);
   }
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, oklch(0.62 0.24 290), oklch(0.78 0.18 200));
@@ -253,6 +256,15 @@
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.6; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes scanline {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+.animate-scanline {
+  animation: scanline 4s linear infinite;
 }
 
 @keyframes shimmer-line {
