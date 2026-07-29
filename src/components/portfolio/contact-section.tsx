@@ -320,7 +320,7 @@ export function ContactSection() {
           <Reveal delay={0.1}>
             <div className="flex h-full flex-col gap-4">
               <ContactLink
-                href="https://wa.me/91852131162?text=Hello%20Rajnesh!%20I%20visited%20your%20portfolio%20and%20want%20to%20chat."
+                href="https://wa.me/918521311624?text=Hello%20Rajnesh!%20I%20visited%20your%20portfolio%20and%20want%20to%20chat."
                 label="WhatsApp"
                 value="Chat Directly on WhatsApp"
                 accent="cyan"
