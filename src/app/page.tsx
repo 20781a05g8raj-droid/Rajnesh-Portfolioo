@@ -18,6 +18,8 @@ import { Footer } from '@/components/portfolio/footer'
 import { useMounted } from '@/lib/use-mounted'
 import { ScrollImageSequence } from '@/components/portfolio/scroll-image-sequence'
 
+import { WhatsAppButton } from '@/components/portfolio/whatsapp-button'
+
 const GlobalBackground3D = dynamic(
   () => import('@/components/portfolio/three/global-background-3d').then((m) => m.GlobalBackground3D),
   { ssr: false }
@@ -29,7 +31,7 @@ export default function Home() {
 
   return (
     <SmoothScrollProvider>
-      <main className="relative w-full overflow-x-hidden bg-transparent text-foreground">
+      <main className="relative w-full overflow-x-clip bg-transparent text-foreground">
         {/* Fixed 3D scroll-driven background */}
         {mounted && <GlobalBackground3D />}
 
@@ -45,6 +47,7 @@ export default function Home() {
             <CustomCursor />
             <HudOverlay />
             <LevelTransition />
+            <WhatsAppButton />
           </>
         ) : null}
 
