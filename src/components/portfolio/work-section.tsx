@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { SectionHeader } from './reveal'
@@ -325,6 +326,12 @@ export function WorkSection() {
                       {f.label}
                     </button>
                   ))}
+                  <Link
+                    href="/projects"
+                    className="rounded-full border border-cyan/50 bg-cyan/15 px-4 py-2 text-xs font-mono font-bold text-cyan hover:bg-cyan/25 hover:scale-105 transition-all shadow-[0_0_15px_rgba(92,229,255,0.2)] ml-2 flex items-center gap-1.5"
+                  >
+                    Full Gallery Page ↗
+                  </Link>
                 </div>
               </div>
             </div>
@@ -372,6 +379,12 @@ export function WorkSection() {
                 {f.label}
               </button>
             ))}
+            <Link
+              href="/projects"
+              className="rounded-xl px-3.5 py-2 text-xs font-mono font-bold bg-cyan text-black hover:bg-cyan/80 transition-all flex items-center gap-1"
+            >
+              Full Gallery ↗
+            </Link>
           </div>
 
           {filtered.map((p, i) => (
